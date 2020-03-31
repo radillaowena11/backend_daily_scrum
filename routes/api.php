@@ -14,6 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+
+
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::middleware(['auth:api'])->get('/user', function (Request $request){
+
     return $request->user();
 });
+
+Route::post('register', 'UserController@register');
+    Route::post('login', 'UserController@login');
+
+    Route::get('daily_scrum', 'Daily_ScrumController@daily_scrum');
+    Route::get('daily_scrumall', 'Daily_ScrumController@daily_scrumAuth')->middleware('jwt.verify'); 
+    Route::post('user', 'UserController@getAuthenticatedUser')->middleware('jwt.verify'); 
+   
+
+
