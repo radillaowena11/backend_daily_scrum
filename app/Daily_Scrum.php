@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Daily_Scrum extends Model
 {
-    protected $table = "daily";
+    protected $table = "daily_scrum";
 }

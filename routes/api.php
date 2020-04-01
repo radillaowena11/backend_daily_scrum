@@ -28,9 +28,16 @@ Route::middleware(['auth:api'])->get('/user', function (Request $request){
 Route::post('register', 'UserController@register');
     Route::post('login', 'UserController@login');
 
-    Route::get('daily_scrum', 'Daily_ScrumController@daily_scrum');
-    Route::get('daily_scrumall', 'Daily_ScrumController@daily_scrumAuth')->middleware('jwt.verify'); 
-    Route::post('user', 'UserController@getAuthenticatedUser')->middleware('jwt.verify'); 
-   
+Route::group(['middleware' => ['jwt.verify']], function (){
+    Route::get('login/check', 'UserController@LoginCheck');
+    Route::post('logout', 'UserController@logout')->middleware('jwt.verify');
+
+    Route::get('/daily_scrum/{id}', 'Daily_ScrumController@index');
+    Route::post('/daily_scrum', 'Daily_ScrumController@store')->middleware('jwt.verify'); 
+    Route::delete('/daily_scrum/{id}', 'Daily_ScrumController@destroy')->middleware('jwt.verify'); 
+
+});
+       // Route::post('user', 'UserController@getAuthenticatedUser')->middleware('jwt.verify'); 
+
 
 
