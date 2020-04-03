@@ -34,7 +34,8 @@ Route::group(['middleware' => ['jwt.verify']], function (){
 
     Route::get('/daily_scrum/{id}', 'Daily_ScrumController@index');
     Route::post('/daily_scrum', 'Daily_ScrumController@store')->middleware('jwt.verify'); 
-    Route::delete('/daily_scrum/{id}', 'Daily_ScrumController@destroy')->middleware('jwt.verify'); 
+    Route::get('daily_scrum/{limit}/{offset}/{id_user}', "DailyController@getAll");
+    Route::delete('/daily_scrum/{id}', 'Daily_ScrumController@delete')->middleware('jwt.verify'); 
 
 });
        // Route::post('user', 'UserController@getAuthenticatedUser')->middleware('jwt.verify'); 
